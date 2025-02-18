@@ -23,6 +23,5 @@ public class BusDto {
     private LocalDate date;
     private BigDecimal basePrice;
     private BigDecimal maxPrice;
-    private RouteDto route12;
-    List<SeatDto> seats;
+    private List<SeatDto> seats;
 }
