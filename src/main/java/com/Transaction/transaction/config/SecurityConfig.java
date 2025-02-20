@@ -35,6 +35,7 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 /*ADMIN AUTHORIZATION */
+                .antMatchers("/corn/**").permitAll()
                 .antMatchers("/admin/post").hasAuthority("ADMIN_CREATE")
                 .antMatchers("/admin/updateBusStop/{id}").hasAuthority("ADMIN_UPDATE")
                 .antMatchers("/admin/deleteBusStop/{id}").hasAuthority("ADMIN_DELETE")
