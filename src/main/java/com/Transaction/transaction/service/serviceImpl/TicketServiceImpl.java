@@ -38,7 +38,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketDto updateTicket(TicketDto ticketDto, int tId) {
         Ticket ticket = this.ticketRepo.findById(tId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "tId", tId));
-        ticket.setTicketNo(ticketDto.getTicketNo());
+        ticket.setTicketNo((long) ticketDto.getTicketNo());
         return ticketToDto(ticket);
     }
 
@@ -75,7 +75,7 @@ public class TicketServiceImpl implements TicketService {
         }
         BookingTicket ticket1 = ticket.getBookingTicket();
         if (ticket1 != null) {
-            ticket1.getTicket().remove(ticket);
+            ticket1.getTickets().remove(ticket);
             bookingRepo.save(ticket1);
         }
         this.ticketRepo.delete(ticket);

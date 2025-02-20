@@ -66,7 +66,7 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public List<BusDto> getBusByRoute(String source, String destination, LocalDate time) {
-        List<Bus> busInfos = this.busRepo.findByRouteSourceBusStopNameAndRouteDestinationBusStopNameAndDate(source, destination, time);
+        List<Bus> busInfos = this.busRepo.findByRouteSourceBusStopNameAndRouteDestinationBusStopNameAndDepartureDate(source, destination, time);
         return busInfos.stream().map(this::busInfoToDto).collect(Collectors.toList());
     }
 

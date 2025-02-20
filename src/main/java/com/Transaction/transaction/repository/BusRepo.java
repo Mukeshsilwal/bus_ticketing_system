@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface BusRepo extends JpaRepository<Bus, Integer> {
-    List<Bus> findByRouteSourceBusStopNameAndRouteDestinationBusStopNameAndDate(
+    List<Bus> findByRouteSourceBusStopNameAndRouteDestinationBusStopNameAndDepartureDate(
             String source, String destination, LocalDate time);
+
 
 }

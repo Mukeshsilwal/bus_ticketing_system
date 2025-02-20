@@ -1,35 +1,54 @@
 package com.Transaction.transaction.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Bus")
-public class    Bus {
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "bus")
+public class Bus {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @EqualsAndHashCode.Include
+    private Long id;
+
     private String busName;
     private String busType;
     private LocalDateTime departureDateTime;
-    private LocalDate date;
+    private LocalDate departureDate;
     private BigDecimal basePrice;
     private BigDecimal maxPrice;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fid")
     private Route route;
-    @OneToMany(mappedBy = "bus", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
-    List<Seat> seats;
+
+    @OneToMany(mappedBy = "bus", fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
+            orphanRemoval = true)
+    private List<Seat> seats = new ArrayList<>();
+
+    public void addSeat(Seat seat) {
+        if (!seats.contains(seat)) {
+            seats.add(seat);
+            seat.setBus(this);
+        }
+    }
+
+    public void removeSeat(Seat seat) {
+        if (seats.remove(seat)) {
+            seat.setBus(null);
+        }
+    }
 }

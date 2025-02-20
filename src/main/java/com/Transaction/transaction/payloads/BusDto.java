@@ -24,4 +24,5 @@ public class BusDto {
     private BigDecimal basePrice;
     private BigDecimal maxPrice;
     private List<SeatDto> seats;
+    private RouteDto routeDto;
 }

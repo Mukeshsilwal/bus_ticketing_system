@@ -20,21 +20,22 @@ import java.util.List;
 public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id1;
+    private int id;  // Changed from id1 to id for clarity
+
     private String email;
     private String password;
+
+    @Enumerated(EnumType.STRING)  // Keeps role stored as a string in DB
     private Role role;
+
     private String otp;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<BookingTicket> tickets;
-    @Enumerated(EnumType.STRING)
-    private Role role1;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return role1.getAuthorities();
+        return role.getAuthorities();  // Assuming role.getAuthorities() returns granted authorities
     }
 
     @Override

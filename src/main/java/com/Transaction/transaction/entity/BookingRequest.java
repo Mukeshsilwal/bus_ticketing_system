@@ -7,18 +7,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "booked")
 public class BookingRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
-    @JoinColumn(name = "id1")
-    private Seat seat;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seat_id", referencedColumnName = "id")
+    private Seat seat;
 }

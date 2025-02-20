@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
         Users user = this.dtoToUser(userDto);
         if (!userRepo.existsByEmail(user.getEmail())) {
-            user.setRole1(Role.SUPER_ADMIN);
+            user.setRole(Role.SUPER_ADMIN);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             Users user1 = this.userRepo.save(user);
             return userToDto(user1);
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto, Integer id) {
         Users user = this.userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        user.setId1(userDto.getId1());
+        user.setId(userDto.getId1());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         Users user1 = this.userRepo.save(user);

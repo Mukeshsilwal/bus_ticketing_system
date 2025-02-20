@@ -18,12 +18,16 @@ public class BookingTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String fullName;
     private String email;
-    @OneToMany(mappedBy = "bookingTicket", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
-    private Set<Ticket> ticket;
-    @ManyToOne
-    @JoinColumn(name = "id1")
-    private Users user;
 
+    @OneToMany(mappedBy = "bookingTicket", fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
+            orphanRemoval = true)
+    private Set<Ticket> tickets; // Renamed for clarity (plural)
+
+    @ManyToOne
+    @JoinColumn(name = "user_id") // Changed column name for clarity
+    private Users user;
 }

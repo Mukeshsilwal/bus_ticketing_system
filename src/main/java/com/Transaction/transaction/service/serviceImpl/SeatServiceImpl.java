@@ -64,7 +64,7 @@ public class SeatServiceImpl implements SeatService {
         if (!seat.isReserved() && busInfo != null) {
             int availableSeats = calculateAvailableSeats(busInfo);
             System.out.println("available seats :" + availableSeats);
-            BigDecimal price = algorithm.calculateDynamicPrice(availableSeats, busInfo.getDate(), busInfo);
+            BigDecimal price = algorithm.calculateDynamicPrice(availableSeats, busInfo.getDepartureDate(), busInfo);
             seat.setPrice(price);
         } else {
             throw new SeatsNotAvailableException("Seat not available :");

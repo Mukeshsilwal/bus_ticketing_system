@@ -22,7 +22,7 @@ public class SuperUserInitializer implements ApplicationRunner {
             Users superUser = new Users();
             superUser.setEmail("mukeshsilwal5@gmail.com");
             superUser.setPassword(encoder.encode("123456"));
-            superUser.setRole1(Role.SUPER_ADMIN);
+            superUser.setRole(Role.SUPER_ADMIN);
             superUser.setRole(Role.SUPER_ADMIN);
             userRepository.save(superUser);
         }
