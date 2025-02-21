@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "bus_stops",
+@Table(name = "bus_stop",
         indexes = @Index(name = "idx_bus_stop_name", columnList = "name"))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class BusStop {

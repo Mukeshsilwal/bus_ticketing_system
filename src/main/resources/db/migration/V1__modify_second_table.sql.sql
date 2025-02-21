@@ -1,9 +1,9 @@
--- Migration script for creating tables if they do not exist in the default schema
+-- Migration script for creating tables in the default schema
 
--- Create bus_stop table
-CREATE TABLE IF NOT EXISTS bus_stop (
-                                        id BIGSERIAL PRIMARY KEY,
-                                        name VARCHAR(255) NOT NULL
+-- Create bus_stops table (note plural name)
+CREATE TABLE IF NOT EXISTS bus_stops (
+                                         id BIGSERIAL PRIMARY KEY,
+                                         name VARCHAR(255) NOT NULL
     );
 
 -- Create route table
@@ -11,15 +11,21 @@ CREATE TABLE IF NOT EXISTS route (
                                      id BIGSERIAL PRIMARY KEY,
                                      source_id BIGINT,
                                      destination_id BIGINT,
-                                     FOREIGN KEY (source_id) REFERENCES bus_stop(id),
-    FOREIGN KEY (destination_id) REFERENCES bus_stop(id)
+                                     FOREIGN KEY (source_id) REFERENCES bus_stops(id),
+    FOREIGN KEY (destination_id) REFERENCES bus_stops(id)
     );
 
 -- Create bus table
 CREATE TABLE IF NOT EXISTS bus (
                                    id BIGSERIAL PRIMARY KEY,
-                                   route_id BIGINT,
-                                   FOREIGN KEY (route_id) REFERENCES route(id)
+                                   bus_name VARCHAR(255) NOT NULL,
+    bus_type VARCHAR(255) NOT NULL,
+    departure_date_time TIMESTAMP,      -- for LocalDateTime
+    departure_date DATE,                -- for LocalDate
+    base_price DECIMAL(10, 2),
+    max_price DECIMAL(10, 2),
+    fid BIGINT,                         -- join column for Route
+    FOREIGN KEY (fid) REFERENCES route(id)
     );
 
 -- Create seat table
@@ -32,6 +38,7 @@ CREATE TABLE IF NOT EXISTS seat (
     FOREIGN KEY (bus_id) REFERENCES bus(id)
     );
 
+-- Create booking_ticket table
 CREATE TABLE IF NOT EXISTS booking_ticket (
                                               id BIGSERIAL PRIMARY KEY
 );
@@ -52,7 +59,6 @@ CREATE TABLE IF NOT EXISTS booked (
                                       seat_id BIGINT,
                                       FOREIGN KEY (seat_id) REFERENCES seat(id)
     );
-
 
 -- Create users_table table
 CREATE TABLE IF NOT EXISTS users_table (
