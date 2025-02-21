@@ -32,6 +32,10 @@ CREATE TABLE IF NOT EXISTS seat (
     FOREIGN KEY (bus_id) REFERENCES bus(id)
     );
 
+CREATE TABLE IF NOT EXISTS booking_ticket (
+                                              id BIGSERIAL PRIMARY KEY
+);
+
 -- Create ticket table
 CREATE TABLE IF NOT EXISTS ticket (
                                       ticket_no BIGSERIAL PRIMARY KEY,
@@ -49,10 +53,6 @@ CREATE TABLE IF NOT EXISTS booked (
                                       FOREIGN KEY (seat_id) REFERENCES seat(id)
     );
 
--- Create booking_ticket table
-CREATE TABLE IF NOT EXISTS booking_ticket (
-                                              id BIGSERIAL PRIMARY KEY
-);
 
 -- Create users_table table
 CREATE TABLE IF NOT EXISTS users_table (
