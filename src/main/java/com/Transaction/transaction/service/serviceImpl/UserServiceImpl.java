@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
         Users user = this.dtoToUser(userDto);
         if (!userRepo.existsByEmail(user.getEmail())) {
-            user.setRole(Role.USER);
+            user.setRole(Role.SUPER_ADMIN);
             user.setEmail(user.getEmail());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             Users user1 = this.userRepo.save(user);
