@@ -54,6 +54,7 @@ public class BusServiceImpl implements BusService {
         Bus busInfo = this.dtoToBusInfo(busDto);
         Route route12 = this.routeRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Route12", "routeIs", id));
         busInfo.setRoute(route12);
+        busInfo.setDepartureDate(busDto.getDate());
         Bus busInfo2 = this.busRepo.save(busInfo);
         return busInfoToDto(busInfo2);
     }
