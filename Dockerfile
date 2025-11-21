@@ -1,14 +1,17 @@
 # -------------------------
-# Run Stage
+# Build stage
+# -------------------------
+FROM maven:3.9-eclipse-temurin-17 AS build   # ← alias is “build”
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn -B package -DskipTests
+
+# -------------------------
+# Run stage
 # -------------------------
 FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
-
-# Copy the jar from the build stage
 COPY --from=build /app/target/*.jar app.jar
-
-# Expose application port
 EXPOSE 8080
-
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
