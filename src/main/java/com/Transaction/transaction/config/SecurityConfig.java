@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .antMatchers("/admin/bus/{id}/route/{routeId}").hasAuthority("ADMIN_UPDATE")
                 .antMatchers("/admin/routeBus/{id}").hasAuthority("ADMIN_CREATE")
                 .antMatchers("/admin/deleteBus/{id}").hasAuthority("ADMIN_DELETE")
+                .antMatchers("/auth/create-user","/auth/sent-otp").permitAll()
                 /*USER CAN ACCESS EVERY ENDPOINT */
                 .antMatchers("/booking/**", "/payment/**", "/bookSeats/**", "/secret/**", "/tickets/**", "/user/**",
                         "/busStop/**", "/route/**", "/bus/**", "/seat/**").permitAll()
