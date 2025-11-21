@@ -30,7 +30,7 @@ public class JwtFilterChain extends OncePerRequestFilter {
         String jwt = null;
 
         String path = request.getServletPath();
-        if (path.startsWith("/auth/")) { // skip auth endpoints
+        if (path.startsWith("/auth/create-user")) { // skip auth endpoints
             filterChain.doFilter(request, response);
             return;
         }
