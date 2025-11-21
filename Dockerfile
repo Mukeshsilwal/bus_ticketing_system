@@ -17,7 +17,7 @@ RUN mvn clean package -DskipTests
 # -------------------------
 # Run Stage
 # -------------------------
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-slim-bullseye
 WORKDIR /app
 
 # Copy the jar from the build stage
