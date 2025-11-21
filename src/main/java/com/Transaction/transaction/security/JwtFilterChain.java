@@ -29,6 +29,11 @@ public class JwtFilterChain extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
 
+        String path = request.getServletPath();
+        if (path.startsWith("/auth/")) { // skip auth endpoints
+            filterChain.doFilter(request, response);
+            return;
+        }
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
             try {
