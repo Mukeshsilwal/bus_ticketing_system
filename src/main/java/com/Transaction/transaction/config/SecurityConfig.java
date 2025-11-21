@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 /*ADMIN AUTHORIZATION */
                 .antMatchers("/corn/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 .antMatchers("/admin/post").hasAuthority("ADMIN_CREATE")
                 .antMatchers("/admin/updateBusStop/{id}").hasAuthority("ADMIN_UPDATE")
                 .antMatchers("/admin/deleteBusStop/{id}").hasAuthority("ADMIN_DELETE")
@@ -48,10 +49,6 @@ public class SecurityConfig {
                 .antMatchers("/admin/bus/{id}/route/{routeId}").hasAuthority("ADMIN_UPDATE")
                 .antMatchers("/admin/routeBus/{id}").hasAuthority("ADMIN_CREATE")
                 .antMatchers("/admin/deleteBus/{id}").hasAuthority("ADMIN_DELETE")
-                .antMatchers("/auth/create-user").permitAll()
-                .antMatchers("/auth/login").permitAll()
-                .antMatchers("/auth/change-password").permitAll()
-                .antMatchers("/auth/sent-otp").permitAll()
                 /*USER CAN ACCESS EVERY ENDPOINT */
                 .antMatchers("/booking/**", "/payment/**", "/bookSeats/**", "/secret/**", "/tickets/**", "/user/**",
                         "/busStop/**", "/route/**", "/bus/**", "/seat/**").permitAll()
