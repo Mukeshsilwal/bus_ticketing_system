@@ -20,16 +20,16 @@ public class Route {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
             orphanRemoval = true)
     private Set<Bus> busInfos = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "source_id")
     private BusStop sourceBusStop;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "destination_id")
     private BusStop destinationBusStop;
 

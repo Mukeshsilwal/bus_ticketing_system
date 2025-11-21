@@ -10,6 +10,7 @@ import com.Transaction.transaction.repository.BookingRequestRepo;
 import com.Transaction.transaction.repository.SeatRepo;
 import com.Transaction.transaction.service.BookingRequestService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +22,7 @@ public class BookingRequestServiceImpl implements BookingRequestService {
     private final BookingRequestRepo requestRepo;
     private final EmailService emailService;
 
+    @Autowired
     public BookingRequestServiceImpl(SeatRepo seatRepo, ModelMapper modelMapper, BookingRequestRepo requestRepo, EmailService emailService) {
         this.seatRepo = seatRepo;
         this.modelMapper = modelMapper;
@@ -29,7 +31,7 @@ public class BookingRequestServiceImpl implements BookingRequestService {
     }
 
     @Override
-    public ReservationResponse rserveSeat(BookingRequestDto requestDto, int seatId) {
+    public ReservationResponse rserveSeat(BookingRequestDto requestDto, long seatId) {
         BookingRequest request = toRequest(requestDto);
 
         // Retrieve the seat by its ID
@@ -61,7 +63,7 @@ public class BookingRequestServiceImpl implements BookingRequestService {
 
     @Transactional
     @Override
-    public void cancelReservation(String email, int ticketNo, int bookingId) {
+    public void cancelReservation(String email, long ticketNo, long bookingId) {
         Seat seat = seatRepo.findById(bookingId).orElseThrow(() -> new ResourceNotFoundException("Seat", "bookingId", bookingId));
         BookingRequest booking = seat.getBooking();
 

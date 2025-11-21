@@ -30,7 +30,7 @@ public class BookingRequestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse> cancelSeat(@RequestParam String email, @RequestParam int ticketNo, @PathVariable int id) {
+    public ResponseEntity<ApiResponse> cancelSeat(@RequestParam String email, @RequestParam long ticketNo, @PathVariable long id) {
         bookingRequestService.cancelReservation(email, ticketNo, id);
         bookingRequestService.cancelNotification(email);
         return new ResponseEntity<>(new ApiResponse("Seat has been canceled", true, HttpStatus.OK), HttpStatus.OK);

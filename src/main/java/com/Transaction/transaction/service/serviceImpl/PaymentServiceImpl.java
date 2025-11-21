@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 
 @Service
 public class PaymentServiceImpl implements com.Transaction.transaction.service.PaymentService {
-    private static final Logger logger = LoggerFactory.getLogger(PaymentService.class);
+    private static final Logger logger = LoggerFactory.getLogger(PaymentServiceImpl.class);
 
     public PaymentData decodePaymentSignature(String base64EncodedSignature) {
         try {

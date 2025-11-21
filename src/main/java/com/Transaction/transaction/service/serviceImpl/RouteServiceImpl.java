@@ -28,14 +28,14 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RouteDto updateRoute(RouteDto routeDto, int id) {
+    public RouteDto updateRoute(RouteDto routeDto, long id) {
         Route route12 = this.routeRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Route12", "id", id));
         Route route121 = this.routeRepo.save(route12);
         return routeToDto(route121);
     }
 
     @Override
-    public void deleteRoute(int id) {
+    public void deleteRoute(long id) {
         Route route12 = this.routeRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Route12", "id", id));
         BusStop busStop = route12.getDestinationBusStop();
         if (busStop != null) {
@@ -51,7 +51,7 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RouteDto getRouteById(int id) {
+    public RouteDto getRouteById(long id) {
         Route route12 = this.routeRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Route12", "id", id));
         return routeToDto(route12);
     }
@@ -63,9 +63,9 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RouteDto createRouteWithBusStop(RouteDto routeDto, int id, int id1) {
-        BusStop busStop = this.busStopRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusStop", "id", id));
-        BusStop busStop1 = this.busStopRepo.findById(id1).orElseThrow(() -> new ResourceNotFoundException("BusStop", "id1", id1));
+    public RouteDto createRouteWithBusStop(RouteDto routeDto, long id, long id1) {
+        BusStop busStop = this.busStopRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusStop", "id", (int) id));
+        BusStop busStop1 = this.busStopRepo.findById(id1).orElseThrow(() -> new ResourceNotFoundException("BusStop", "id1", (int) id1));
         Route route12 = this.dtoToRoute(routeDto);
         route12.setSourceBusStop(busStop);
         route12.setDestinationBusStop(busStop1);

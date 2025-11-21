@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public interface BookingRequestService {
-    ReservationResponse rserveSeat(BookingRequestDto requestDto, int seatID);
+    ReservationResponse rserveSeat(BookingRequestDto requestDto, long seatID);
 
-    void cancelReservation(String email, int ticketNo, int bookingId);
+    void cancelReservation(String email, long ticketNo, long bookingId);
 
     void cancelNotification(String email);
 }

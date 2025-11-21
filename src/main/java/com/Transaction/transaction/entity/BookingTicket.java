@@ -17,7 +17,7 @@ import java.util.Set;
 public class BookingTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String fullName;
     private String email;

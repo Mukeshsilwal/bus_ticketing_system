@@ -99,12 +99,13 @@ public class UserServiceImpl implements UserService {
 
 
         String otp = this.otpGeneratorService.generateOTP();
+        byte[] byteData=otp.getBytes();
 
         this.emailService.sendEmail(
                 userJson.getUsername(),
                 "Otp",
                 "Please use this otp to change your password",
-                otp,
+                byteData,
                 ""
         );
 

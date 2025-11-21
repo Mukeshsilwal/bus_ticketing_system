@@ -23,7 +23,7 @@ public class TicketController {
 
 
     @GetMapping("/generate")
-    public ResponseEntity<byte[]> generateTicket(@RequestParam Integer ticketId) throws DocumentException {
+    public ResponseEntity<byte[]> generateTicket(@RequestParam long ticketId) throws DocumentException {
 
         Ticket ticket = ticketService.getTicketById(ticketId);
         byte[] pdfData = ticketPDFService.generateTicketPDF(ticket);
@@ -37,26 +37,26 @@ public class TicketController {
     }
 
     @PutMapping("/put/{id}")
-    public ResponseEntity<TicketDto> updateTicket(@RequestBody TicketDto ticketDto, @PathVariable Integer id) {
+    public ResponseEntity<TicketDto> updateTicket(@RequestBody TicketDto ticketDto, @PathVariable long id) {
         TicketDto ticketDto1 = this.ticketService.updateTicket(ticketDto, id);
         return new ResponseEntity<>(ticketDto1, HttpStatus.OK);
     }
 
     @PostMapping("/seat/{id}/book/{bId}")
-    public ResponseEntity<TicketDto> createTicketForSeat(@RequestBody TicketDto ticketDto, @PathVariable Integer id,
-                                                         @PathVariable Integer bId) {
+    public ResponseEntity<TicketDto> createTicketForSeat(@RequestBody TicketDto ticketDto, @PathVariable long id,
+                                                         @PathVariable long bId) {
         TicketDto ticketDto1 = this.ticketService.createSeatWithTicket(ticketDto, id, bId);
         return new ResponseEntity<>(ticketDto1, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/ticket/{tId}")
-    public ResponseEntity<ApiResponse> deleteTicketOfSeat(@PathVariable Integer tId) {
+    public ResponseEntity<ApiResponse> deleteTicketOfSeat(@PathVariable long tId) {
         this.ticketService.deleteSeatWithTicket(tId);
         return new ResponseEntity<>(new ApiResponse("Tickete Has Been Removed successfully", true, HttpStatus.OK), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Ticket> getAllTicket(@PathVariable Integer id) {
+    public ResponseEntity<Ticket> getAllTicket(@PathVariable long id) {
         Ticket ticketDto = this.ticketService.getTicketById(id);
         return new ResponseEntity<>(ticketDto, HttpStatus.OK);
     }

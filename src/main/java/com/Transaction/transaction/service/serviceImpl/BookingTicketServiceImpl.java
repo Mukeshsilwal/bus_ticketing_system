@@ -26,7 +26,7 @@ public class BookingTicketServiceImpl implements BookingTicketService {
     }
 
     @Override
-    public BookingTicketDto getBooking(int bookingId) {
+    public BookingTicketDto getBooking(long bookingId) {
         BookingTicket bookingTicket = this.bookingRepo.findById(bookingId).orElseThrow(() -> new ResourceNotFoundException("BookingTicket", "bookingId", bookingId));
         return bookingToDto(bookingTicket);
     }
@@ -39,7 +39,7 @@ public class BookingTicketServiceImpl implements BookingTicketService {
     }
 
     @Override
-    public BookingTicketDto getBookById(int id) {
+    public BookingTicketDto getBookById(long id) {
         BookingTicket bookingTicket = this.bookingRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Seat", "id", id));
         return bookingToDto(bookingTicket);
     }

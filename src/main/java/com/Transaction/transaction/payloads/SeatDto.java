@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SeatDto {
-    private int id;
+    private Long id;
     private boolean reserved;
     private String seatNumber;
     private BigDecimal price;

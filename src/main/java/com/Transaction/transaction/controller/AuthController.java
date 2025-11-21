@@ -46,7 +46,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/create_user")
+    @PostMapping("/create-user")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
         UserDto userDto = this.userService.createUser(user);
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);

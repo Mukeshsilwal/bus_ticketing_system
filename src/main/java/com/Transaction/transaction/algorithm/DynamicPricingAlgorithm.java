@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Configuration
 public class DynamicPricingAlgorithm {
@@ -33,7 +34,7 @@ public class DynamicPricingAlgorithm {
             return dynamicPrice;
         }
 
-        dynamicPrice = dynamicPrice.multiply(TIME_FACTOR.multiply(calculateTimeFactor(date)));
+        dynamicPrice = dynamicPrice.multiply(TIME_FACTOR.multiply(calculateTimeFactor(busInfo.getDepartureDateTime())));
 
         dynamicPrice = dynamicPrice.min(busInfo.getMaxPrice());
         dynamicPrice = dynamicPrice.setScale(2, RoundingMode.HALF_UP);
@@ -45,13 +46,18 @@ public class DynamicPricingAlgorithm {
         return BigDecimal.valueOf(1.0).add(BigDecimal.valueOf(1.0).subtract(BigDecimal.valueOf((double) availableSeats / totalSeats)));
     }
 
-    private BigDecimal calculateTimeFactor(LocalDate date) {
-        int daysDifference = LocalDate.now().until(date).getDays();
-        System.out.println("Days Different :" + daysDifference);
+    private BigDecimal calculateTimeFactor(LocalDateTime dateTime) {
+        LocalDate today = LocalDate.now();
+        LocalDate targetDate = dateTime.toLocalDate();
+
+        int daysDifference = (int) today.until(targetDate).getDays();
+        System.out.println("Days Difference: " + daysDifference);
+
         if (daysDifference <= 2) {
             return BigDecimal.valueOf(1.2);
         } else {
             return BigDecimal.valueOf(1.0);
         }
     }
+
 }

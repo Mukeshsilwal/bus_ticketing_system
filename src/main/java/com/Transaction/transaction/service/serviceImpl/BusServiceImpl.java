@@ -28,7 +28,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public BusDto updateBusInfo(BusDto busDto, int id, int routeId) {
+    public BusDto updateBusInfo(BusDto busDto, long id, long routeId) {
         Bus busInfo = this.busRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusInfo", "id", id));
         Route route12 = this.routeRepo.findById(routeId).orElseThrow(() -> new ResourceNotFoundException("Route12", "routeIs", routeId));
         busInfo.setBusName(busDto.getBusName());
@@ -39,7 +39,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public void deleteBusInfo(Integer id) {
+    public void deleteBusInfo(long id) {
         Bus busInfo = this.busRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusInfo", "id", id));
         Route route12 = busInfo.getRoute();
         if (route12 != null) {
@@ -50,7 +50,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public BusDto createBusForRoute(BusDto busDto, int id) {
+    public BusDto createBusForRoute(BusDto busDto, long id) {
         Bus busInfo = this.dtoToBusInfo(busDto);
         Route route12 = this.routeRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Route12", "routeIs", id));
         busInfo.setRoute(route12);

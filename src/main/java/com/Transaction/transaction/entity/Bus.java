@@ -30,7 +30,7 @@ public class Bus {
     private BigDecimal basePrice;
     private BigDecimal maxPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fid")
     private Route route;
 

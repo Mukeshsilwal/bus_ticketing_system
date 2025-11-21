@@ -24,25 +24,25 @@ public class SingleAdminController {
     private final SeatService seatService;
 
     @PutMapping("/updateBusStop/{id}")
-    public ResponseEntity<BusStopDto> updateBusStop(@RequestBody BusStopDto busStopDto, @PathVariable int id) {
+    public ResponseEntity<BusStopDto> updateBusStop(@RequestBody BusStopDto busStopDto, @PathVariable long id) {
         BusStopDto busStopDto1 = this.stopService.updateBusStop(busStopDto, id);
         return new ResponseEntity<>(busStopDto1, HttpStatus.OK);
     }
 
     @PutMapping("/updateRoute/{id}")
-    public ResponseEntity<RouteDto> updateRoute(@RequestBody RouteDto routeDto, @PathVariable int id) {
+    public ResponseEntity<RouteDto> updateRoute(@RequestBody RouteDto routeDto, @PathVariable long id) {
         RouteDto routeDto1 = this.service.updateRoute(routeDto, id);
         return new ResponseEntity<>(routeDto1, HttpStatus.OK);
     }
 
     @PutMapping("/bus/{id}/route/{routeId}")
-    public ResponseEntity<BusDto> updateBusInfoWithRoute(@RequestBody BusDto busDto, @PathVariable Integer id, @PathVariable Integer routeId) {
+    public ResponseEntity<BusDto> updateBusInfoWithRoute(@RequestBody BusDto busDto, @PathVariable long id, @PathVariable Integer routeId) {
         BusDto busDto1 = this.busService.updateBusInfo(busDto, id, routeId);
         return new ResponseEntity<>(busDto1, HttpStatus.OK);
     }
 
     @PutMapping("/updateSeat/{id}")
-    public ResponseEntity<SeatDto> updateSeat(@RequestBody SeatDto seatDto, @PathVariable Integer id) {
+    public ResponseEntity<SeatDto> updateSeat(@RequestBody SeatDto seatDto, @PathVariable long id) {
         SeatDto seatDto1 = this.seatService.updateSeat(seatDto, id);
         return new ResponseEntity<>(seatDto1, HttpStatus.OK);
     }
@@ -54,44 +54,44 @@ public class SingleAdminController {
     }
 
     @PostMapping("/busStopRoute/{id}/{id1}")
-    public ResponseEntity<RouteDto> createRouteWithBusStop(@RequestBody RouteDto routeDto, @PathVariable int
-            id, @PathVariable int id1) {
+    public ResponseEntity<RouteDto> createRouteWithBusStop(@RequestBody RouteDto routeDto, @PathVariable long
+            id, @PathVariable long id1) {
         RouteDto routeDto1 = this.service.createRouteWithBusStop(routeDto, id, id1);
         return new ResponseEntity<>(routeDto1, HttpStatus.CREATED);
     }
 
     @PostMapping("/routeBus/{id}")
-    public ResponseEntity<BusDto> createBusInRoute(@RequestBody BusDto busDto, @PathVariable int id) {
+    public ResponseEntity<BusDto> createBusInRoute(@RequestBody BusDto busDto, @PathVariable long id) {
         BusDto busDto1 = this.busService.createBusForRoute(busDto, id);
         return new ResponseEntity<>(busDto1, HttpStatus.CREATED);
     }
 
     @PostMapping("/postSeat/{id}")
-    public ResponseEntity<SeatDto> createSeatForBus(@RequestBody SeatDto seatDto, @PathVariable Integer id) {
+    public ResponseEntity<SeatDto> createSeatForBus(@RequestBody SeatDto seatDto, @PathVariable long id) {
         SeatDto seatDto1 = this.seatService.createSeatForBus(seatDto, id);
         return new ResponseEntity<>(seatDto1, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deleteBusStop/{id}")
-    public ResponseEntity<ApiResponse> deleteBusStop(@PathVariable int id) {
+    public ResponseEntity<ApiResponse> deleteBusStop(@PathVariable long id) {
         this.stopService.deleteBusStop(id);
         return new ResponseEntity<>(new ApiResponse("BusStop has been deleted", true, HttpStatus.OK), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteRoute/{id}")
-    public ResponseEntity<ApiResponse> deleteRoute(@PathVariable int id) {
+    public ResponseEntity<ApiResponse> deleteRoute(@PathVariable long id) {
         this.service.deleteRoute(id);
         return new ResponseEntity<>(new ApiResponse("Route is deleted by ADMIN", true, HttpStatus.OK), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteBus/{id}")
-    public ResponseEntity<ApiResponse> deleteBus(@PathVariable int id) {
+    public ResponseEntity<ApiResponse> deleteBus(@PathVariable long id) {
         busService.deleteBusInfo(id);
         return new ResponseEntity<>(new ApiResponse("Bus deleted", true, HttpStatus.OK), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteSeat/{id}")
-    public ResponseEntity<ApiResponse> deleteSeat(@PathVariable Integer id) {
+    public ResponseEntity<ApiResponse> deleteSeat(@PathVariable long id) {
         this.seatService.deleteSeat(id);
         return new ResponseEntity<>(new ApiResponse("Seat Has Been Deleted Successfully", true, HttpStatus.OK), HttpStatus.OK);
     }

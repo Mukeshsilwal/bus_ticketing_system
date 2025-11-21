@@ -27,7 +27,7 @@ public class SeatServiceImpl implements SeatService {
 
 
     @Override
-    public SeatDto updateSeat(SeatDto seatDto, int id) {
+    public SeatDto updateSeat(SeatDto seatDto, long id) {
         Seat seat = this.seatRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Seat", "id", id));
         seat.setSeatNumber(seatDto.getSeatNumber());
         Seat seat1 = this.seatRepo.save(seat);
@@ -35,7 +35,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public void deleteSeat(int id) {
+    public void deleteSeat(long id) {
         Seat seat = this.seatRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Seat", "id", id));
         Bus busInfo = seat.getBus();
         if (busInfo != null) {
@@ -46,7 +46,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public SeatDto getSeatById(int id) {
+    public SeatDto getSeatById(long id) {
         Seat seat = this.seatRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Seat", "id", id));
         return seatToDto(seat);
     }
@@ -58,21 +58,34 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public SeatDto createSeatForBus(SeatDto seatDto, int id) {
-        Seat seat = this.dtoToSeat(seatDto);
-        Bus busInfo = this.busRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusInfo", "id", id));
-        if (!seat.isReserved() && busInfo != null) {
+    public SeatDto createSeatForBus(SeatDto seatDto, long busId) {
+
+        // Always create new seat (ignore any ID that comes from frontend)
+        Seat seat = new Seat();
+        seat.setSeatNumber(seatDto.getSeatNumber());
+        seat.setReserved(false);
+
+        Bus busInfo = busRepo.findById(busId)
+                .orElseThrow(() -> new ResourceNotFoundException("BusInfo", "id", busId));
+
+        if (!seat.isReserved()) {
             int availableSeats = calculateAvailableSeats(busInfo);
-            System.out.println("available seats :" + availableSeats);
-            BigDecimal price = algorithm.calculateDynamicPrice(availableSeats, busInfo.getDepartureDate(), busInfo);
+            BigDecimal price = algorithm.calculateDynamicPrice(
+                    availableSeats,
+                    busInfo.getDepartureDate(),
+                    busInfo
+            );
             seat.setPrice(price);
         } else {
-            throw new SeatsNotAvailableException("Seat not available :");
+            throw new SeatsNotAvailableException("Seat not available");
         }
+
         seat.setBus(busInfo);
-        Seat seat1 = this.seatRepo.save(seat);
-        return seatToDto(seat1);
+
+        Seat savedSeat = seatRepo.save(seat);
+        return seatToDto(savedSeat);
     }
+
 
     private int calculateAvailableSeats(Bus busInfo) {
         List<Seat> reservedSeats = seatRepo.findByBusAndReserved(busInfo, true);

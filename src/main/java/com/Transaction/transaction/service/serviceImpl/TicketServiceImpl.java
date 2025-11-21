@@ -32,18 +32,18 @@ public class TicketServiceImpl implements TicketService {
         String body = "Thank you for booking! Your booking details: ";
         String attachmentName = "ticket.pdf";
 
-//        emailService.sendEmail(userEmail, subject, body, pdfContent, attachmentName);
+        emailService.sendEmail(userEmail, subject, body, pdfContent, attachmentName);
     }
 
     @Override
-    public TicketDto updateTicket(TicketDto ticketDto, int tId) {
+    public TicketDto updateTicket(TicketDto ticketDto, long tId) {
         Ticket ticket = this.ticketRepo.findById(tId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "tId", tId));
         ticket.setTicketNo((long) ticketDto.getTicketNo());
         return ticketToDto(ticket);
     }
 
     @Override
-    public TicketDto createSeatWithTicket(TicketDto ticketDto, int id, int bookId) {
+    public TicketDto createSeatWithTicket(TicketDto ticketDto, long id, long bookId) {
         try {
             Ticket ticket = this.dtoToTicket(ticketDto);
             Seat seat = this.seatRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Seat", "id", id));
@@ -65,7 +65,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Transactional
     @Override
-    public void deleteSeatWithTicket(int tId) {
+    public void deleteSeatWithTicket(long tId) {
         Ticket ticket = this.ticketRepo.findById(tId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "tId", tId));
         Seat seat = ticket.getSeat();
         if (seat != null) {
@@ -82,7 +82,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Ticket getTicketById(int tId) {
+    public Ticket getTicketById(long tId) {
         Ticket ticket = this.ticketRepo.findById(tId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "tId", tId));
         return ticket;
     }

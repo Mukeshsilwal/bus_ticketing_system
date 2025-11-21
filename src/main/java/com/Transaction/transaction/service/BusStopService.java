@@ -7,11 +7,11 @@ import java.util.List;
 public interface BusStopService {
     BusStopDto createBusStop(BusStopDto busStopDto);
 
-    BusStopDto updateBusStop(BusStopDto busStopDto, int id);
+    BusStopDto updateBusStop(BusStopDto busStopDto, long id);
 
-    void deleteBusStop(int id);
+    void deleteBusStop(long id);
 
     List<BusStopDto> getAllBusStops();
 
-    BusStopDto getBusStopById(int id);
+    BusStopDto getBusStopById(long id);
 }

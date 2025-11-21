@@ -5,14 +5,14 @@ import com.Transaction.transaction.payloads.RouteDto;
 import java.util.List;
 
 public interface RouteService {
-    RouteDto updateRoute(RouteDto routeDto, int id);
+    RouteDto updateRoute(RouteDto routeDto, long id);
 
-    void deleteRoute(int id);
+    void deleteRoute(long id);
 
-    RouteDto getRouteById(int id);
+    RouteDto getRouteById(long id);
 
     List<RouteDto> getAllRoute();
 
-    RouteDto createRouteWithBusStop(RouteDto routeDto, int id, int id1);
+    RouteDto createRouteWithBusStop(RouteDto routeDto, long id, long id1);
 
 }

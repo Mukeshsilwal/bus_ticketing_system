@@ -30,7 +30,7 @@ public class BusStopServiceImpl implements BusStopService {
     }
 
     @Override
-    public BusStopDto updateBusStop(BusStopDto busStopDto, int id) {
+    public BusStopDto updateBusStop(BusStopDto busStopDto, long id) {
         BusStop busStop = this.dtoToBusStop(busStopDto);
         busStop.setName(busStopDto.getName());
         BusStop busStop1 = this.busStopRepo.save(busStop);
@@ -38,8 +38,8 @@ public class BusStopServiceImpl implements BusStopService {
     }
 
     @Override
-    public void deleteBusStop(int id) {
-        BusStop busStop = this.busStopRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusStop", "id", id));
+    public void deleteBusStop(long id) {
+        BusStop busStop = this.busStopRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusStop", "id", (int) id));
         busStopRepo.delete(busStop);
     }
 
@@ -50,8 +50,8 @@ public class BusStopServiceImpl implements BusStopService {
     }
 
     @Override
-    public BusStopDto getBusStopById(int id) {
-        BusStop busStop = this.busStopRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusStop", "id", id));
+    public BusStopDto getBusStopById(long id) {
+        BusStop busStop = this.busStopRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("BusStop", "id", (int) id));
         return busStopToDto(busStop);
     }
 
