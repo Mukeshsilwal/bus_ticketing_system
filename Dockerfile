@@ -1,8 +1,30 @@
-FROM maven:3.8-openjdk-11 AS build
+# -------------------------
+# Build Stage
+# -------------------------
+FROM maven:3.9.4-openjdk-17 AS build
+WORKDIR /app
+
+# Copy pom.xml and download dependencies first for caching
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copy the rest of the source code
 COPY . .
+
+# Build the Spring Boot jar
 RUN mvn clean package -DskipTests
 
-FROM openjdk:11-jdk-slim
-COPY --from=build /target/spring-boot-docker.jar app.jar
+# -------------------------
+# Run Stage
+# -------------------------
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+
+# Copy the jar from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose application port
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
