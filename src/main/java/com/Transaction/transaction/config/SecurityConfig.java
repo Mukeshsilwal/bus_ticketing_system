@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .antMatchers("/admin/bus/{id}/route/{routeId}").hasAuthority("ADMIN_UPDATE")
                 .antMatchers("/admin/routeBus/{id}").hasAuthority("ADMIN_CREATE")
                 .antMatchers("/admin/deleteBus/{id}").hasAuthority("ADMIN_DELETE")
-                .antMatchers("/auth/create_user").permitAll()
+                .antMatchers("/auth/create-user").permitAll()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/change-password").permitAll()
                 .antMatchers("/auth/sent-otp").permitAll()

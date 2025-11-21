@@ -1,5 +1,6 @@
 package com.Transaction.transaction.service;
 
+import com.Transaction.transaction.entity.Users;
 import com.Transaction.transaction.model.ChangePasswordRequest;
 import com.Transaction.transaction.model.User;
 import com.Transaction.transaction.payloads.UserDto;
@@ -20,6 +21,6 @@ public interface UserService {
 
     void changePassword(ChangePasswordRequest changePasswordRequest);
 
-    void sentOtp(User username) throws JsonProcessingException;
+    void sentOtp(User users) throws JsonProcessingException;
 
 }

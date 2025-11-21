@@ -3,6 +3,7 @@ package com.Transaction.transaction.payloads;
 
 import com.Transaction.transaction.entity.Role;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -22,6 +23,6 @@ public class UserDto {
     @NotEmpty
     @Size(min = 7, max = 50)
     private String password;
-    @NonNull
+    @Nullable
     private Role role;
 }
