@@ -13,6 +13,7 @@ import com.Transaction.transaction.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,6 +28,7 @@ public class TicketServiceImpl implements TicketService {
     private final EmailService emailService;
 
     @Override
+    @Async
     public void sendBookingConfirmationEmail(String userEmail, byte[] pdfContent) {
         String subject = "Booking Confirmation";
         String body = "Thank you for booking! Your booking details: ";

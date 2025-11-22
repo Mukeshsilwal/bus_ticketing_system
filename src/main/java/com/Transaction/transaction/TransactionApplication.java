@@ -4,12 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.net.*;
 
 @SpringBootApplication
 @EnableTransactionManagement
+@EnableAsync
 public class TransactionApplication extends Authenticator {
     public static void main(String[] args) {
         SpringApplication.run(TransactionApplication.class, args);
