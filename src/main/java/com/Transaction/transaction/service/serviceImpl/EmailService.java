@@ -15,30 +15,35 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendEmail(String to, String subject, String body,byte[] attachment, String attachmentName) {
-        MimeMessage message = javaMailSender.createMimeMessage();
+    public void sendEmail(String to, String subject, String body, byte[] attachment, String attachmentName) {
         try {
+            MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(body, true);
 
-            helper.addAttachment(attachmentName, new ByteArrayResource(attachment));
-            helper.setText(attachmentName);
-            javaMailSender.send(message);
-        } catch (MessagingException e) {
+            if (attachment != null) {
+                helper.addAttachment(attachmentName, new ByteArrayResource(attachment));
+            }
 
+            javaMailSender.send(message);
+
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
 
     public void sendEmailForCancelTicket(String to, String subject, String body) {
-        MimeMessage message = javaMailSender.createMimeMessage();
         try {
+            MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(body, true);
+
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -46,16 +51,18 @@ public class EmailService {
     }
 
     public void sendEmailForOtp(String to, String subject, String body) {
-        MimeMessage message = javaMailSender.createMimeMessage();
         try {
+            MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(body, true);
+
             javaMailSender.send(message);
+
         } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
 }
-
