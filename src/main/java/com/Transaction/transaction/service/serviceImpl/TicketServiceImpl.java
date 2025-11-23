@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -29,12 +30,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Async
-    public void sendBookingConfirmationEmail(String userEmail, byte[] pdfContent) {
+    public void sendBookingConfirmationEmail(String userEmail, byte[] pdfContent) throws IOException {
         String subject = "Booking Confirmation";
         String body = "Thank you for booking! Your booking details: ";
         String attachmentName = "ticket.pdf";
 
-        emailService.sendEmail(userEmail, subject, body, pdfContent, attachmentName);
+        emailService.sendEmailWithAttachment(userEmail, subject, body, pdfContent);
     }
 
     @Override

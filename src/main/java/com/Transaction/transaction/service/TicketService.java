@@ -3,6 +3,7 @@ package com.Transaction.transaction.service;
 import com.Transaction.transaction.entity.Ticket;
 import com.Transaction.transaction.payloads.TicketDto;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface TicketService {
@@ -15,5 +16,5 @@ public interface TicketService {
 
     Ticket getTicketById(long tId);
 
-    void sendBookingConfirmationEmail(String userEmail, byte[] pdfContent);
+    void sendBookingConfirmationEmail(String userEmail, byte[] pdfContent) throws IOException;
 }
